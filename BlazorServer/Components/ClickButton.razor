@@ -1,0 +1,9 @@
+﻿<button class="btn btn-primary" @onclick="OnClickHandler">@ChildContent</button>
+
+@code {
+    [Parameter()]
+    public EventCallback OnClickCallback { get; set; }
+    [Parameter()]
+    public RenderFragment ChildContent { get; set; }
+    protected async Task OnClickHandler() => await OnClickCallback.InvokeAsync();
+}

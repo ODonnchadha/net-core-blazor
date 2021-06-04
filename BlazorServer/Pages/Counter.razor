@@ -1,0 +1,10 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+<p>Current Count: @count</p>
+<ClickButton OnClickCallback="OnClickMethod">Click Me!</ClickButton>
+
+@code {
+    private int count = 0;
+    protected void OnClickMethod() => count++;
+}

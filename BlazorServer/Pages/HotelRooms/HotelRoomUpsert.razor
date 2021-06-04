@@ -1,0 +1,67 @@
+﻿@page "/hotel-rooms/create"
+
+@using BlazorServer.Domain.DTOs;
+@using BlazorServer.Domain.Interfaces.Repositories;
+
+@inject IBlazorServerRepository repository;
+@inject NavigationManager manager;
+
+<div class="row mt-2 mb-5">
+    <h4 class="card-title text-info mb-3 ml-3">
+        @Title Hotel Room
+    </h4>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="obj" OnValidSubmit="OnValidSubmitAsync">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-value="obj.Name" ValueExpression="@(() => obj.Name)" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => obj.Name)" />
+                    </div>
+                    <div class="form-group">
+                        <label>Occupancy</label>
+                        <InputNumber @bind-value="obj.Occupancy" ValueExpression="@(() => obj.Occupancy)" class="form-control"></InputNumber>
+                        <ValidationMessage For="@(() => obj.Occupancy)" />
+                    </div>
+                    <div class="form-group">
+                        <label>Regular Rate</label>
+                        <InputNumber @bind-value="obj.RegularRate" ValueExpression="@(() => obj.RegularRate)" class="form-control"></InputNumber>
+                        <ValidationMessage For="@(() => obj.RegularRate)" />
+                    </div>
+                    <div class="form-group">
+                        <label>Square Feet</label>
+                        <InputText @bind-value="obj.SqFt" ValueExpression="@(() => obj.SqFt)" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label>Details</label>
+                        <InputTextArea @bind-value="obj.Details" ValueExpression="@(() => obj.Details)" class="form-control"></InputTextArea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">@Title Room</button>
+                        <NavLink href="/hotel-rooms" class="btn btn-secondary">Back</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string Title { get; set; } = "Create";
+    private HotelRoom obj { get; set; } = new HotelRoom { };
+
+    private async Task OnValidSubmitAsync()
+    {
+        var unique = await repository.IsUnique(obj.Name);
+        if (unique != null)
+        {
+            return;
+        }
+
+        var result = await repository.CreateHotelRoom(obj);
+
+        manager.NavigateTo("/hotel-rooms");
+    }
+}

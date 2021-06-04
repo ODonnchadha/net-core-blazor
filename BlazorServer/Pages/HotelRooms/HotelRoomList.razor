@@ -1,0 +1,61 @@
+﻿@page "/hotel-rooms"
+
+@using BlazorServer.Domain.DTOs;
+@using BlazorServer.Domain.Interfaces.Repositories;
+
+@inject IBlazorServerRepository repository;
+
+<div class="row mt-4">
+    <div class="col-8">
+        <h4 class="card-title text-info">
+            Hotel Rooms
+        </h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink href="/hotel-rooms/create" class="btn btn-info form-control">Add</NavLink>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Occupancy</th>
+                    <th>Rate</th>
+                    <th>Square Feet</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (@rooms.Any())
+                {
+                    foreach (var r in rooms)
+                    {
+                        <tr>
+                            <td>@r.Name</td>
+                            <td>@r.Occupancy</td>
+                            <td>@r.RegularRate.ToString("c")</td>
+                            <td>@r.SqFt</td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                <tr><td colspan="5"><span class="card-title text-info">[No hotels found]</span></td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<HotelRoom> rooms { get; set; } = new List<HotelRoom> { };
+
+    protected override void OnInitialized()
+    {
+        rooms = repository.GetAllHotelRooms();
+    }
+}
