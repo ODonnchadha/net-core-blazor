@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorServer.Library\BlazorServer.Domain.csproj" />
+    <ProjectReference Include="..\BlazorServer.Domain\BlazorServer.Domain.csproj" />
     <ProjectReference Include="..\BlazorServer.Repository\BlazorServer.Repository.csproj" />
   </ItemGroup>
 

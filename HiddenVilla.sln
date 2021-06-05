@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "BlazorWebAssembly\BlazorWebAssembly.csproj", "{73041C94-F03C-447F-B0CF-C4D85ED6EDC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer.Domain", "BlazorServer.Library\BlazorServer.Domain.csproj", "{9F24B29B-CF33-46EE-8494-4692B6499EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer.Domain", "BlazorServer.Domain\BlazorServer.Domain.csproj", "{9F24B29B-CF33-46EE-8494-4692B6499EDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer.Repository", "BlazorServer.Repository\BlazorServer.Repository.csproj", "{0A910995-6B96-4BF1-B378-D259F3D118FC}"
 EndProject

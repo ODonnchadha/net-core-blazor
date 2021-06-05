@@ -95,3 +95,9 @@
                 <ValidationSummary />
             </EditForm>
         ```
+
+- Blazor & JavaScript:
+    ```javascript
+        @inject IJSRuntime js;
+    ```
+    - TOASTR. With a lengthy CDN setup wrappered via helper extensions.

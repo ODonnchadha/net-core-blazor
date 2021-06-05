@@ -1,9 +1,11 @@
 ﻿@page "/hotel-rooms/create"
+@page "/hotel-rooms/edit/{Id:int}"
 
 @using BlazorServer.Domain.DTOs;
 @using BlazorServer.Domain.Interfaces.Repositories;
 
 @inject IBlazorServerRepository repository;
+@inject IJSRuntime js;
 @inject NavigationManager manager;
 
 <div class="row mt-2 mb-5">
@@ -49,18 +51,37 @@
 </div>
 
 @code {
+    [Parameter()]
+    public int? Id { get; set; }
+
     private string Title { get; set; } = "Create";
     private HotelRoom obj { get; set; } = new HotelRoom { };
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (Id != null)
+        {
+            Title = "Update";
+            obj = await repository.GetHotelRoom(Id.Value);
+        }
+        else
+        {
+            obj = new HotelRoom { };
+        }
+    }
 
     private async Task OnValidSubmitAsync()
     {
         var unique = await repository.IsUnique(obj.Name);
         if (unique != null)
         {
+            await js.ToastrError("Hotel room name was not unique");
             return;
         }
 
         var result = await repository.CreateHotelRoom(obj);
+
+        await js.ToastrSuccess("Hotel room created");
 
         manager.NavigateTo("/hotel-rooms");
     }
